@@ -5,23 +5,32 @@ ESDA is a component-oriented reference and test application for use in performan
 ## Getting Started
 
 ```sh
+# Docker
 docker pull wurstmeister/kafka
-git-clone https://git.scc.kit.edu/i43/esda
-cd esda
+docker pull openjdk
+
+# Git
+git clone https://git.scc.kit.edu/i43/esda
+cd .\esda
+
+# Build
+mvn -f .\edu.kit.ipd.are.esda\pom.xml clean install
+
+mvn -f .\edu.kit.ipd.are.esda.aggregate\pom.xml clean package
+docker build -t esda/aggregate .\edu.kit.ipd.are.esda.aggregate
+
+mvn -f .\edu.kit.ipd.are.esda.analysis\pom.xml clean package
+docker build -t esda/analysis .\edu.kit.ipd.are.esda.analysis
+
+mvn -f .\edu.kit.ipd.are.esda.importer\pom.xml clean package
+docker build -t esda/importer .\edu.kit.ipd.are.esda.importer
+
+# Execut
 docker-compose up -d
 
-# Building and execution of the three component
-cd edu.kit.ipd.are.esda
-mvn clean install
-cd ../edu.kit.ipd.are.esda.importer
-mvn clean install
-mvn spring-boot:run
-cd ../edu.kit.ipd.are.esda.aggregate
-mvn clean install
-mvn spring-boot:run
-cd ../edu.kit.ipd.are.esda.analysis
-mvn clean install
-mvn spring-boot:run
+docker run -i --log-driver=none -a stdin -a stdout -a stderr esda/importer
+docker run -i --log-driver=none -a stdin -a stdout -a stderr esda/aggregate
+docker run -i --log-driver=none -a stdin -a stdout -a stderr esda/analysis
 
 # Test
 curl "localhost:80/add/abc/30"
