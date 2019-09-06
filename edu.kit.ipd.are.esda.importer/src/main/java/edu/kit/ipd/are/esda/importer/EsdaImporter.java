@@ -36,13 +36,13 @@ public class EsdaImporter {
 
     @Bean
     public KafkaTemplate<String, Object> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+        return new KafkaTemplate<String, Object>(producerFactory());
     }
 
     @Bean
     public Map<String, Object> producerConfigs() {
         final Map<String, Object> properties =
-                new HashMap<>(kafkaProperties.buildProducerProperties());
+                new HashMap<String, Object>(kafkaProperties.buildProducerProperties());
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return properties;
@@ -50,7 +50,7 @@ public class EsdaImporter {
 
     @Bean
     public ProducerFactory<String, Object> producerFactory() {
-        return new DefaultKafkaProducerFactory<>(producerConfigs());
+        return new DefaultKafkaProducerFactory<String, Object>(producerConfigs());
     }
 
 }

@@ -42,7 +42,7 @@ public class EsdaAggregate {
     @Bean
     public Map<String, Object> consumerConfigs() {
         final Map<String, Object> properties =
-                new HashMap<>(consumerProperties.buildConsumerProperties());
+                new HashMap<String, Object>(consumerProperties.buildConsumerProperties());
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "${spring.kafka.consumer.group-id}");
@@ -52,9 +52,9 @@ public class EsdaAggregate {
 
     @Bean
     public ConsumerFactory<String, Object> consumerFactory() {
-        final JsonDeserializer<Object> jsonDeserializer = new JsonDeserializer<>();
+        final JsonDeserializer<Object> jsonDeserializer = new JsonDeserializer<Object>();
         jsonDeserializer.addTrustedPackages("*"); // TODO "${spring.json.trusted-packages}"
-        return new DefaultKafkaConsumerFactory<>(consumerProperties.buildConsumerProperties(),
+        return new DefaultKafkaConsumerFactory<String, Object>(consumerProperties.buildConsumerProperties(),
                 new StringDeserializer(), jsonDeserializer);
     }
 
@@ -69,13 +69,13 @@ public class EsdaAggregate {
 
     @Bean
     public KafkaTemplate<String, Object> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+        return new KafkaTemplate<String, Object>(producerFactory());
     }
 
     @Bean
     public Map<String, Object> producerConfigs() {
         final Map<String, Object> properties =
-                new HashMap<>(producerProperties.buildProducerProperties());
+                new HashMap<String, Object>(producerProperties.buildProducerProperties());
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return properties;

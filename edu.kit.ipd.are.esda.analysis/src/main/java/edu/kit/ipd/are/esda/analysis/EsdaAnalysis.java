@@ -31,7 +31,7 @@ public class EsdaAnalysis {
     @Bean
     public Map<String, Object> consumerConfigs() {
         final Map<String, Object> properties =
-                new HashMap<>(kafkaProperties.buildConsumerProperties());
+                new HashMap<String, Object>(kafkaProperties.buildConsumerProperties());
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
@@ -42,7 +42,7 @@ public class EsdaAnalysis {
 
     @Bean
     public ConsumerFactory<String, Object> consumerFactory() {
-        final JsonDeserializer<Object> jsonDeserializer = new JsonDeserializer<>();
+        final JsonDeserializer<Object> jsonDeserializer = new JsonDeserializer<Object>();
         jsonDeserializer.addTrustedPackages("*"); // TODO "${spring.json.trusted-packages}"
         return new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(),
                 new StringDeserializer(), jsonDeserializer);
@@ -51,7 +51,7 @@ public class EsdaAnalysis {
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
         final ConcurrentKafkaListenerContainerFactory<String, Object> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
+                new ConcurrentKafkaListenerContainerFactory<String, Object>();
         factory.setConsumerFactory(consumerFactory());
 
         return factory;
