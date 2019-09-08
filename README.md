@@ -10,10 +10,7 @@ git clone https://git.scc.kit.edu/i43/esda
 cd .\esda
 
 # Build
-mvn -f .\edu.kit.ipd.are.esda\pom.xml clean install
-mvn -f .\edu.kit.ipd.are.esda.aggregate\pom.xml clean package
-mvn -f .\edu.kit.ipd.are.esda.analysis\pom.xml clean package
-mvn -f .\edu.kit.ipd.are.esda.importer\pom.xml clean package
+mvn clean package
 
 # Execute
 docker-compose -f .\docker-compose_kafka.yml up --build
