@@ -7,10 +7,3 @@ image: maven:3.6-jdk-12
 cache:
   paths:
     - .m2/repository
-
-verify:
-  stage: test
-  script:
-    - 'mvn $MAVEN_CLI_OPTS verify'
-  except:
-    - master
