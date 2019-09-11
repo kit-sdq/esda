@@ -10,9 +10,9 @@ cache:
 
 script:
   - mvn clean package
-  - docker build -t kitsdq/esda-aggregate .\edu.kit.ipd.are.esda.aggregate
-  - docker build -t kitsdq/esda-analysis .\edu.kit.ipd.are.esda.analysis
-  - docker build -t kitsdq/esda-importer .\edu.kit.ipd.are.esda.importer
+  - docker build -t kitsdq/esda-aggregate ./edu.kit.ipd.are.esda.aggregate
+  - docker build -t kitsdq/esda-analysis ./edu.kit.ipd.are.esda.analysis
+  - docker build -t kitsdq/esda-importer ./edu.kit.ipd.are.esda.importer
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push kitsdq/esda-aggregate
   - docker push kitsdq/esda-analysis
