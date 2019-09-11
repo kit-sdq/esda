@@ -6,7 +6,7 @@ ESDA is a component-oriented reference and test application for use in performan
 
 ```sh
 # Git
-git clone https://git.scc.kit.edu/i43/esda
+git clone git@github.com:kit-sdq/esda.git
 cd .\esda
 
 # Build

@@ -1,15 +1,15 @@
 version: '2'
 services:
   aggregate:
-    build: edu.kit.ipd.are.esda.aggregate
+    image: kitsdq/esda-aggregate
     networks:
       esdanet:
   analysis:
-    build: edu.kit.ipd.are.esda.analysis
+    image: kitsdq/esda-analysis
     networks:
       esdanet:
   importer:
-    build: edu.kit.ipd.are.esda.importer    
+    image: kitsdq/esda-importer
     networks:
       esdanet:
     
