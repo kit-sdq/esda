@@ -28,6 +28,7 @@ jobs:
             docker-compose --file docker-compose.test.yml build
             docker-compose --file docker-compose.test.yml run sut
           else
+            mvn clean package
             docker build --tag esda-aggregate ./edu.kit.ipd.are.esda.aggregate
             docker build --tag esda-analysis ./edu.kit.ipd.are.esda.analysis
             docker build --tag esda-importer ./edu.kit.ipd.are.esda.importer
@@ -47,6 +48,7 @@ jobs:
 
       - name: Build images
         run: |
+          mvn clean package
           docker build --tag esda-aggregate ./edu.kit.ipd.are.esda.aggregate
           docker build --tag esda-analysis ./edu.kit.ipd.are.esda.analysis
           docker build --tag esda-importer ./edu.kit.ipd.are.esda.importer
