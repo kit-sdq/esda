@@ -17,7 +17,7 @@ jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
-    runs-on: ubuntu-latest
+    runs-on: openjdk12
 
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +40,7 @@ jobs:
     # Ensure test job passes before pushing image.
     needs: test
 
-    runs-on: ubuntu-latest
+    runs-on: openjdk12
     if: github.event_name == 'push'
 
     steps:
