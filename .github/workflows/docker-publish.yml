@@ -17,11 +17,14 @@ jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
-    runs-on: openjdk12
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-
+      - name: Set up JDK 12
+        uses: actions/setup-java@v1
+        with:
+          java-version: 12
       - name: Run tests
         run: |
           if [ -f docker-compose.test.yml ]; then
@@ -40,12 +43,15 @@ jobs:
     # Ensure test job passes before pushing image.
     needs: test
 
-    runs-on: openjdk12
+    runs-on: ubuntu-latest
     if: github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v2i
-
+      - name: Set up JDK 12
+        uses: actions/setup-java@v1
+        with:
+          java-version: 12
       - name: Build images
         run: |
           mvn clean package
